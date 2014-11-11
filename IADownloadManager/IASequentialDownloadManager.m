@@ -93,11 +93,45 @@ bool hasDuplicateUrls(NSArray* urls)
     return NO;
 }
 
+bool hasDuplicateRequests(NSArray* requests)
+{
+    for(int j = 0 ; j < [requests count] ; j++)
+    {
+        for(int k = j+1 ; k < [requests count] ; k++)
+        {
+            NSURL *url1 = [[requests objectAtIndex:j] URL];
+            NSURL *url2 = [[requests objectAtIndex:k] URL];
+            
+            if([url1.absoluteString isEqualToString:url2.absoluteString])
+            {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
 int indexOfURL(NSURL *url, NSArray* urls)
 {
     for(int j = 0 ; j < [urls count] ; j++)
     {
         NSURL *url1 = [urls objectAtIndex:j];
+        
+        if([url1.absoluteString isEqualToString:url.absoluteString])
+        {
+            return j;
+        }
+    }
+    
+    return NSNotFound;
+}
+
+int indexOfRequest(NSURL *url, NSArray* requests)
+{
+    for(int j = 0 ; j < [requests count] ; j++)
+    {
+        NSURL *url1 = [[requests objectAtIndex:j] URL];
         
         if([url1.absoluteString isEqualToString:url.absoluteString])
         {
@@ -141,6 +175,40 @@ void (^globalSequentialCompletionBlock)
         [self.downloadHandlers removeObjectForKey:@(tag)];
         [self.queues removeObjectForKey:urls];
         [self.remainingDownloads removeObjectForKey:urls];
+    }
+};
+
+void (^globalSequentialCompletionBlockWithRequests)
+(BOOL success, id response, NSURL *url,
+ NSArray *requests, int tag, IASequentialDownloadManager* self) =
+^(BOOL success, id response, NSURL *url,
+  NSArray *requests, int tag, IASequentialDownloadManager* self)
+{
+    NSMutableArray *handlers = [self.downloadHandlers objectForKey:requests];
+    //Inform the handlers
+    int remainingDownloads = [[self.remainingDownloads objectForKey:requests] intValue];
+    int index = hasDuplicateRequests(requests) ? requests.count - remainingDownloads : indexOfRequest(url, requests);
+    
+    remainingDownloads--;
+    [self.remainingDownloads setObject:@(remainingDownloads) forKey:requests];
+    
+    [handlers enumerateObjectsUsingBlock:^(IASequentialDownloadHandler *handler,
+                                           NSUInteger idx, BOOL *stop) {
+        
+        if(handler.completionBlock)
+            handler.completionBlock(success, response, index);
+        
+        if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:response:atIndex:)])
+            [handler.delegate sequentialManagerDidFinish:success response:response atIndex:index];
+        
+    }];
+    
+    //Remove the download handlers
+    if(remainingDownloads == 0)
+    {
+        [self.downloadHandlers removeObjectForKey:@(tag)];
+        [self.queues removeObjectForKey:requests];
+        [self.remainingDownloads removeObjectForKey:requests];
     }
 };
 
@@ -238,13 +306,11 @@ void (^globalSequentialCompletionBlock)
                                filePath:nil
                                progressBlock:^(float progress, NSURL *url) {
                                    
-                                   globalSequentialProgressBlock(progress, url, requests,
-                                                                 tag,self);
+                                   globalSequentialProgressBlock(progress, url, requests, tag, self);
                                    
                                } completionBlock:^(BOOL success, id response) {
                                    
-                                   globalSequentialCompletionBlock(success, response,
-                                                                   request.URL, requests, tag, self);
+                                   globalSequentialCompletionBlockWithRequests(success, response, request.URL, requests, tag, self);
                                    
                                }];
     
