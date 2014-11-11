@@ -10,7 +10,7 @@
 #import <AFHTTPRequestOperation.h>
 
 typedef void (^IASequentialProgressBlock)(float progress, int index);
-typedef void (^IASequentialCompletionBlock)(BOOL success, id response, int index);
+typedef void (^IASequentialCompletionBlock)(BOOL success, AFHTTPRequestOperation *operation, id response, int index);
 
 @protocol IASequentialDownloadManagerDelegate <NSObject>
 - (void) sequentialManagerProgress:(float)progress atIndex:(int)index;

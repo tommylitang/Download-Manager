@@ -162,7 +162,7 @@ void (^globalSequentialCompletionBlock)
                                            NSUInteger idx, BOOL *stop) {
         
         if(handler.completionBlock)
-            handler.completionBlock(success, response, index);
+            handler.completionBlock(success, operation, response, index);
         
         if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:operation:response:atIndex:)])
             [handler.delegate sequentialManagerDidFinish:success operation:operation response:response atIndex:index];
@@ -196,7 +196,7 @@ void (^globalSequentialCompletionBlockWithRequests)
                                            NSUInteger idx, BOOL *stop) {
         
         if(handler.completionBlock)
-            handler.completionBlock(success, response, index);
+            handler.completionBlock(success, operation, response, index);
         
         if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:operation:response:atIndex:)])
             [handler.delegate sequentialManagerDidFinish:success operation:operation response:response atIndex:index];
