@@ -1,0 +1,39 @@
+PODS:
+  - AFNetworking (2.4.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.4.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.4.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.4.1)
+  - AFNetworking/Security (2.4.1)
+  - AFNetworking/Serialization (2.4.1)
+  - AFNetworking/UIKit (2.4.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - EGOCache (2.1)
+  - Kiwi (2.3.0)
+  - Nocilla (0.8.2)
+
+DEPENDENCIES:
+  - AFNetworking
+  - EGOCache
+  - Kiwi (~> 2.3.0)
+  - Nocilla
+
+SPEC CHECKSUMS:
+  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  EGOCache: bf414333c425fe47f5182351d1dd47ebf72d8352
+  Kiwi: 54bece5b35564d9b8e03c608d926f1a22fcfc589
+  Nocilla: e11763419977add781e628157328bcdf8b392e97
+
+COCOAPODS: 0.34.4
