@@ -26,6 +26,17 @@
                                        progressBlock:(IAProgressBlock)progressBlock
                                      completionBlock:(IACompletionBlock)completionBlock
 {
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    return [self downloadingOperationWithRequest:request useCache:useCache filePath:filePath progressBlock:progressBlock completionBlock:completionBlock];
+}
+
++ (IADownloadOperation*) downloadingOperationWithRequest:(NSURLRequest *)request
+                                                useCache:(BOOL)useCache
+                                                filePath:(NSString *)filePath
+                                           progressBlock:(IAProgressBlock)progressBlock
+                                         completionBlock:(IACompletionBlock)completionBlock
+{
+    NSURL *url = request.URL;
     IADownloadOperation *op = [IADownloadOperation new];
     op.url = url;
     op->_finalFilePath = filePath;
@@ -36,8 +47,6 @@
                        completionBlock:completionBlock];
         return nil;
     }
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 

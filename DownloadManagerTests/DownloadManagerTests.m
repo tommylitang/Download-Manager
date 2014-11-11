@@ -28,6 +28,22 @@ describe(@"Downloading", ^{
     
     context(@"without cache", ^{
         
+        it(@"should download a single file by request", ^{
+            NSURLRequest *request = [[NSURLRequest alloc]initWithURL:testURL];
+            [IADownloadManager downloadItemWithRequest:request useCache:NO];
+            [IADownloadManager attachListenerWithObject:self
+                                          progressBlock:^(float progress, NSURL *url) {
+                                          }
+                                        completionBlock:^(BOOL success, id response) {
+                                            UIImage *image = [UIImage imageWithData:response];
+                                            [[image should] beNonNil];
+                                            [[image should] beKindOfClass:[UIImage class]];
+                                            didFinishLoading = YES;
+                                        } toURL:testURL];
+            [[expectFutureValue(theValue(didFinishLoading))
+              shouldEventuallyBeforeTimingOutAfter(20)] beTrue];
+        });
+
         it(@"should download a single file", ^{
             
             [IADownloadManager downloadItemWithURL:testURL useCache:NO];

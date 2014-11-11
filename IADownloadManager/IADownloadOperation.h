@@ -21,6 +21,12 @@
                                        progressBlock:(IAProgressBlock)progressBlock
                                      completionBlock:(IACompletionBlock)completionBlock;
 
++ (IADownloadOperation*) downloadingOperationWithRequest:(NSURLRequest *)request
+                                                useCache:(BOOL)useCache
+                                                filePath:(NSString *)filePath
+                                           progressBlock:(IAProgressBlock)progressBlock
+                                         completionBlock:(IACompletionBlock)completionBlock;
+
 - (void)start;
 - (void)stop;
 

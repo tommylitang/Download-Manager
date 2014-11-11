@@ -142,30 +142,38 @@ void (^globalCompletionBlock)(BOOL success, id response, NSURL *url, IADownloadM
                       useCache:(BOOL)useCache
                     saveToPath:(NSString *)path
 {
-    if([self isDownloadingItemWithURL:url])
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    [self startDownloadOperationByRequest:request useCache:useCache saveToPath:path];
+}
+
+- (void)startDownloadOperationByRequest:(NSURLRequest *)request
+                      useCache:(BOOL)useCache
+                    saveToPath:(NSString *)path
+{
+    if([self isDownloadingItemWithURL:request.URL])
         return;
     
     IADownloadOperation *downloadingOperation = [IADownloadOperation
-                                                 downloadingOperationWithURL:url
+                                                 downloadingOperationWithRequest:request
                                                  useCache:useCache
                                                  filePath:path
                                                  progressBlock:^(float progress, id x) {
                                                      
-                                                     globalProgressBlock(progress, url, self);
+                                                     globalProgressBlock(progress, request.URL, self);
                                                      
                                                  }
                                                  completionBlock:^(BOOL success, id response) {
                                                      
-                                                     globalCompletionBlock(success, response, url, self);
+                                                     globalCompletionBlock(success, response, request.URL, self);
                                                      
                                                  }];
     
     if(downloadingOperation)
     {
         [downloadingOperation start];
-    
+        
         //Add the new operation
-        [self.downloadOperations setObject:downloadingOperation forKey:url];
+        [self.downloadOperations setObject:downloadingOperation forKey:request.URL];
     }
 }
 
@@ -261,6 +269,18 @@ void (^globalCompletionBlock)(BOOL success, id response, NSURL *url, IADownloadM
                   saveToPath:(NSString *)path
 {
     [[self instance] startDownloadOperation:url useCache:useCache saveToPath:path];
+}
+
++ (void) downloadItemWithRequest:(NSURLRequest *)request useCache:(BOOL)useCache
+{
+    [IADownloadManager downloadItemWithRequest:request useCache:useCache saveToPath:nil];
+}
+
++ (void) downloadItemWithRequest:(NSURLRequest *)request
+                    useCache:(BOOL)useCache
+                  saveToPath:(NSString *)path
+{
+    [[self instance] startDownloadOperationByRequest:request useCache:useCache saveToPath:path];
 }
 
 + (void) attachListener:(id<IADownloadManagerDelegate>)listener toURL:(NSURL*)url

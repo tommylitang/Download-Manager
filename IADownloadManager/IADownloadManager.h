@@ -28,6 +28,15 @@ typedef void (^IACompletionBlock)(BOOL success, id response);
                     useCache:(BOOL)useCache
                   saveToPath:(NSString *)path;
 
+//Start the download request for a Request, note that the same URL will never be downloaded twice
++ (void) downloadItemWithRequest:(NSURLRequest *)request
+                    useCache:(BOOL)useCache;
+
+//Start the download request for a Request and saving to a file, note that the same URL will never be downloaded twice
++ (void) downloadItemWithRequest:(NSURLRequest *)request
+                    useCache:(BOOL)useCache
+                  saveToPath:(NSString *)path;
+
 //Delegate based events
 // 1 url download operation can have multiple listeners
 // But 1 listener cannot listen to 1 url download operation
