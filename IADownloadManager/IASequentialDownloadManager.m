@@ -463,6 +463,13 @@ void (^globalSequentialCompletionBlock)
                                  useCache:useCache];
 }
 
++ (void) downloadItemWithRequests:(NSArray *)requests
+                         useCache:(BOOL)useCache
+{
+    [[self instance] downloadItemWithRequests:requests
+                                     useCache:useCache];
+}
+
 + (void) attachListener:(id<IASequentialDownloadManagerDelegate>)listener toURLs:(NSArray*)urls
 {
     [[self instance] attachNewHandlerWithListener:listener toURLs:urls];
