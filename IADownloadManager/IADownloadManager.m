@@ -65,15 +65,15 @@ void (^globalProgressBlock)(float progress, NSURL *url, IADownloadManager* self)
     }];
 };
 
-void (^globalCompletionBlock)(BOOL success, id response, NSURL *url, IADownloadManager* self) =
-^(BOOL success, id response, NSURL *url, IADownloadManager* self)
+void (^globalCompletionBlock)(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url, IADownloadManager* self) =
+^(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url, IADownloadManager* self)
 {
     NSMutableArray *handlers = [self.downloadHandlers objectForKey:url];
     //Inform the handlers
     [handlers enumerateObjectsUsingBlock:^(IADownloadHandler *handler, NSUInteger idx, BOOL *stop) {
     
         if(handler.completionBlock)
-            handler.completionBlock(success, response);
+            handler.completionBlock(success, operation, response);
         
         if([handler.delegate respondsToSelector:@selector(downloadManagerDidFinish:response:)])
             [handler.delegate downloadManagerDidFinish:success response:response];
@@ -162,9 +162,9 @@ void (^globalCompletionBlock)(BOOL success, id response, NSURL *url, IADownloadM
                                                      globalProgressBlock(progress, request.URL, self);
                                                      
                                                  }
-                                                 completionBlock:^(BOOL success, id response) {
+                                                 completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                                      
-                                                     globalCompletionBlock(success, response, request.URL, self);
+                                                     globalCompletionBlock(success, operation, response, request.URL, self);
                                                      
                                                  }];
     

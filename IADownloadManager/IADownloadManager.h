@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFHTTPRequestOperation.h>
 @class IADownloadOperation;
 
 typedef void (^IAProgressBlock)(float progress, NSURL *url);
-typedef void (^IACompletionBlock)(BOOL success, id response);
+typedef void (^IACompletionBlock)(BOOL success, AFHTTPRequestOperation *operation, id response);
 
 @protocol IADownloadManagerDelegate <NSObject>
 - (void) downloadManagerDidProgress:(float)progress;

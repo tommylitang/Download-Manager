@@ -66,7 +66,6 @@
     [op.operation
      setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
          
-         
          [IADownloadOperation setCacheWithData:responseObject url:url];
          __strong IADownloadOperation *StrongOp = weakOp;
          if(StrongOp != nil && StrongOp->_tempFilePath && StrongOp->_finalFilePath)
@@ -76,13 +75,13 @@
              [[NSFileManager defaultManager] moveItemAtPath:StrongOp->_tempFilePath toPath:StrongOp->_finalFilePath error:&error];
          }
          [StrongOp finish];
-         completionBlock(YES, responseObject);
+         completionBlock(YES, operation, responseObject);
          
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          __strong IADownloadOperation *StrongOp = weakOp;
-         completionBlock(NO, nil);
+         completionBlock(NO, operation, nil);
          [StrongOp finish];
      }];
     
@@ -146,7 +145,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             progressBlock(1, url);
-            completionBlock(YES, data);
+            completionBlock(YES, nil, data);
             
             [self finish];
             

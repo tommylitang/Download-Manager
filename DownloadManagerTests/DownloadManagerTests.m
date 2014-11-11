@@ -34,7 +34,7 @@ describe(@"Downloading", ^{
             [IADownloadManager attachListenerWithObject:self
                                           progressBlock:^(float progress, NSURL *url) {
                                           }
-                                        completionBlock:^(BOOL success, id response) {
+                                        completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                             UIImage *image = [UIImage imageWithData:response];
                                             [[image should] beNonNil];
                                             [[image should] beKindOfClass:[UIImage class]];
@@ -53,7 +53,7 @@ describe(@"Downloading", ^{
                                               
                                               
                                           }
-                                        completionBlock:^(BOOL success, id response) {
+                                        completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                             
                                             UIImage *image = [UIImage imageWithData:response];
                                             [[image should] beNonNil];
@@ -75,7 +75,7 @@ describe(@"Downloading", ^{
                                           progressBlock:^(float progress, NSURL *url) {
                                               
                                           }
-                                        completionBlock:^(BOOL success, id response) {
+                                        completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                             
                                             [[theValue(success) should] beFalse];
                                             didFinishLoading = YES;
@@ -103,7 +103,7 @@ describe(@"Downloading", ^{
                                               didCallProgress = YES;
                                               
                                           }
-                                        completionBlock:^(BOOL success, id response) {
+                                        completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                             
                                             didFinishLoading = YES;
                                             

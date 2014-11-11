@@ -144,9 +144,9 @@ int indexOfRequest(NSURL *url, NSArray* requests)
 
 
 void (^globalSequentialCompletionBlock)
-(BOOL success, id response, NSURL *url,
+(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url,
  NSArray *urls, int tag, IASequentialDownloadManager* self) =
-^(BOOL success, id response, NSURL *url,
+^(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url,
  NSArray *urls, int tag, IASequentialDownloadManager* self)
 {
     NSMutableArray *handlers = [self.downloadHandlers objectForKey:urls];
@@ -164,8 +164,8 @@ void (^globalSequentialCompletionBlock)
         if(handler.completionBlock)
             handler.completionBlock(success, response, index);
         
-        if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:response:atIndex:)])
-            [handler.delegate sequentialManagerDidFinish:success response:response atIndex:index];
+        if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:operation:response:atIndex:)])
+            [handler.delegate sequentialManagerDidFinish:success operation:operation response:response atIndex:index];
         
     }];
 
@@ -179,9 +179,9 @@ void (^globalSequentialCompletionBlock)
 };
 
 void (^globalSequentialCompletionBlockWithRequests)
-(BOOL success, id response, NSURL *url,
+(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url,
  NSArray *requests, int tag, IASequentialDownloadManager* self) =
-^(BOOL success, id response, NSURL *url,
+^(BOOL success, AFHTTPRequestOperation *operation, id response, NSURL *url,
   NSArray *requests, int tag, IASequentialDownloadManager* self)
 {
     NSMutableArray *handlers = [self.downloadHandlers objectForKey:requests];
@@ -198,8 +198,8 @@ void (^globalSequentialCompletionBlockWithRequests)
         if(handler.completionBlock)
             handler.completionBlock(success, response, index);
         
-        if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:response:atIndex:)])
-            [handler.delegate sequentialManagerDidFinish:success response:response atIndex:index];
+        if([handler.delegate respondsToSelector:@selector(sequentialManagerDidFinish:operation:response:atIndex:)])
+            [handler.delegate sequentialManagerDidFinish:success operation:operation response:response atIndex:index];
         
     }];
     
@@ -257,9 +257,9 @@ void (^globalSequentialCompletionBlockWithRequests)
                                    globalSequentialProgressBlock(progress, url, urls,
                                                                  tag,self);
                                    
-                               } completionBlock:^(BOOL success, id response) {
+                               } completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                    
-                                   globalSequentialCompletionBlock(success, response,
+                                   globalSequentialCompletionBlock(success, operation, response,
                                                                    url, urls, tag, self);
                                    
                                }];
@@ -308,9 +308,9 @@ void (^globalSequentialCompletionBlockWithRequests)
                                    
                                    globalSequentialProgressBlock(progress, url, requests, tag, self);
                                    
-                               } completionBlock:^(BOOL success, id response) {
+                               } completionBlock:^(BOOL success, AFHTTPRequestOperation *operation, id response) {
                                    
-                                   globalSequentialCompletionBlockWithRequests(success, response, request.URL, requests, tag, self);
+                                   globalSequentialCompletionBlockWithRequests(success, operation, response, request.URL, requests, tag, self);
                                    
                                }];
     

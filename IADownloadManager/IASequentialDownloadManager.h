@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFHTTPRequestOperation.h>
 
 typedef void (^IASequentialProgressBlock)(float progress, int index);
 typedef void (^IASequentialCompletionBlock)(BOOL success, id response, int index);
 
 @protocol IASequentialDownloadManagerDelegate <NSObject>
 - (void) sequentialManagerProgress:(float)progress atIndex:(int)index;
-- (void) sequentialManagerDidFinish:(BOOL)success response:(id)response atIndex:(int)index;
+- (void) sequentialManagerDidFinish:(BOOL)success operation:(AFHTTPRequestOperation *)operation response:(id)response atIndex:(int)index;
 @end
 
 @interface IASequentialDownloadManager : NSObject
