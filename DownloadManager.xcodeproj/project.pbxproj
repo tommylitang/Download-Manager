@@ -92,10 +92,14 @@
 		0775100A18C617A800A7754B /* DownloadManagerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DownloadManagerTests-Prefix.pch"; sourceTree = "<group>"; };
 		07ED116218C666360015ACCA /* IADownloadManager+TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IADownloadManager+TestHelper.h"; sourceTree = "<group>"; };
 		07ED116318C666360015ACCA /* IADownloadManager+TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IADownloadManager+TestHelper.m"; sourceTree = "<group>"; };
+		2BE4A46FE7B7E3F1C3B3A1E2 /* Pods.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.testing.xcconfig; path = "Pods/Target Support Files/Pods/Pods.testing.xcconfig"; sourceTree = "<group>"; };
+		3534D77A2C4C8D96C1BDB335 /* Pods-DownloadManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownloadManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownloadManagerTests/Pods-DownloadManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3ED5E53311398E97BB292A28 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		539891ECFA87D104412616CA /* Pods-DownloadManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownloadManagerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownloadManagerTests/Pods-DownloadManagerTests.release.xcconfig"; sourceTree = "<group>"; };
 		756BD6ACC37D478B9A09C9CB /* libPods-DownloadManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DownloadManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6957401EDE34E4685F72289 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		C434396CBBA644199F1A57D7 /* Pods-DownloadManagerTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownloadManagerTests.xcconfig"; path = "Pods/Pods-DownloadManagerTests.xcconfig"; sourceTree = "<group>"; };
 		E7F3650686854467B79268BA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9900E95E32F7BC08AF60E83 /* Pods-DownloadManagerTests.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownloadManagerTests.testing.xcconfig"; path = "Pods/Target Support Files/Pods-DownloadManagerTests/Pods-DownloadManagerTests.testing.xcconfig"; sourceTree = "<group>"; };
+		F605644F3DAADA4D581FA9F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +159,7 @@
 				076910D017ABDE5B00439E30 /* Frameworks */,
 				076910CF17ABDE5B00439E30 /* Products */,
 				07750FF718C616CB00A7754B /* Podfile */,
-				B6957401EDE34E4685F72289 /* Pods.xcconfig */,
-				C434396CBBA644199F1A57D7 /* Pods-DownloadManagerTests.xcconfig */,
+				25943E37C4FAB7F7DB1A5E31 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -233,6 +236,19 @@
 				0775100A18C617A800A7754B /* DownloadManagerTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		25943E37C4FAB7F7DB1A5E31 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3ED5E53311398E97BB292A28 /* Pods.debug.xcconfig */,
+				2BE4A46FE7B7E3F1C3B3A1E2 /* Pods.testing.xcconfig */,
+				F605644F3DAADA4D581FA9F6 /* Pods.release.xcconfig */,
+				3534D77A2C4C8D96C1BDB335 /* Pods-DownloadManagerTests.debug.xcconfig */,
+				E9900E95E32F7BC08AF60E83 /* Pods-DownloadManagerTests.testing.xcconfig */,
+				539891ECFA87D104412616CA /* Pods-DownloadManagerTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,7 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		338334E42E5B4FCAA12E38F1 /* Copy Pods Resources */ = {
@@ -361,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-DownloadManagerTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownloadManagerTests/Pods-DownloadManagerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		71FC01163ED240B0BA368937 /* Check Pods Manifest.lock */ = {
@@ -519,7 +535,7 @@
 		};
 		076910F217ABDE5B00439E30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6957401EDE34E4685F72289 /* Pods.xcconfig */;
+			baseConfigurationReference = 3ED5E53311398E97BB292A28 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DownloadManager/DownloadManager-Prefix.pch";
@@ -535,7 +551,7 @@
 		};
 		076910F317ABDE5B00439E30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6957401EDE34E4685F72289 /* Pods.xcconfig */;
+			baseConfigurationReference = F605644F3DAADA4D581FA9F6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DownloadManager/DownloadManager-Prefix.pch";
@@ -547,7 +563,7 @@
 		};
 		0775100E18C617A900A7754B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C434396CBBA644199F1A57D7 /* Pods-DownloadManagerTests.xcconfig */;
+			baseConfigurationReference = 3534D77A2C4C8D96C1BDB335 /* Pods-DownloadManagerTests.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DownloadManager.app/DownloadManager";
@@ -577,7 +593,7 @@
 		};
 		0775100F18C617A900A7754B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C434396CBBA644199F1A57D7 /* Pods-DownloadManagerTests.xcconfig */;
+			baseConfigurationReference = 539891ECFA87D104412616CA /* Pods-DownloadManagerTests.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DownloadManager.app/DownloadManager";
@@ -643,7 +659,7 @@
 		};
 		0775101118C65F4C00A7754B /* Testing */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6957401EDE34E4685F72289 /* Pods.xcconfig */;
+			baseConfigurationReference = 2BE4A46FE7B7E3F1C3B3A1E2 /* Pods.testing.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DownloadManager/DownloadManager-Prefix.pch";
@@ -660,7 +676,7 @@
 		};
 		0775101218C65F4C00A7754B /* Testing */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C434396CBBA644199F1A57D7 /* Pods-DownloadManagerTests.xcconfig */;
+			baseConfigurationReference = E9900E95E32F7BC08AF60E83 /* Pods-DownloadManagerTests.testing.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DownloadManager.app/DownloadManager";
