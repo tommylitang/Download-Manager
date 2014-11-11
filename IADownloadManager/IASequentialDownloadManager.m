@@ -199,6 +199,59 @@ void (^globalSequentialCompletionBlock)
     return op;
 }
 
+- (void) addDownloadOperationWithRequest:(NSURLRequest *)request
+                                 toQueue:(NSOperationQueue*)queue
+                                     tag:(int)tag
+                                useCache:(BOOL)useCache
+                                requests:(NSArray*)requests
+{
+    IADownloadOperation *op =
+    [self downloadOperationForRequest:request tag:tag useCache:useCache requests:requests];
+    
+    [queue addOperation:op];
+}
+
+- (IADownloadOperation*) downloadOperationForRequest:(NSURLRequest *)request
+                                           fromQueue:(NSOperationQueue*)queue
+{
+    __block IADownloadOperation *op = nil;
+    
+    [queue.operations enumerateObjectsUsingBlock:^(IADownloadOperation *op_, NSUInteger idx, BOOL *stop) {
+        if ([request.URL.absoluteString isEqualToString:op_.url.absoluteString]) {
+            op = op_;
+            *stop = YES;
+        }
+    }];
+    
+    return op;
+}
+
+- (IADownloadOperation*) downloadOperationForRequest:(NSURLRequest *)request
+                                                 tag:(int)tag
+                                            useCache:(BOOL)useCache
+                                            requests:(NSArray*)requests
+{
+    NSLog(@"%@",request);
+    IADownloadOperation *op = [IADownloadOperation
+                               downloadingOperationWithRequest:request
+                               useCache:useCache
+                               filePath:nil
+                               progressBlock:^(float progress, NSURL *url) {
+                                   
+                                   globalSequentialProgressBlock(progress, url, requests,
+                                                                 tag,self);
+                                   
+                               } completionBlock:^(BOOL success, id response) {
+                                   
+                                   globalSequentialCompletionBlock(success, response,
+                                                                   request.URL, requests, tag, self);
+                                   
+                               }];
+    
+    return op;
+}
+
+
 #pragma mark IADownloadHandlers and IADownloadOperation Helpers
 #pragma mark -
 
@@ -314,6 +367,23 @@ void (^globalSequentialCompletionBlock)
         //Do we already have this download item?
         [self addDownloadOperationWithURL:url toQueue:queue
                                       tag:0 useCache:useCache urls:urls];
+    }];
+}
+
+- (void) downloadItemWithRequests:(NSArray *)requests
+                         useCache:(BOOL)useCache
+{
+    //Create a new sequential download operation if it does not already Exist
+    //Do we already have a queue?
+    NSOperationQueue *queue = [self operationQueueWithURLs:requests];
+    
+    if (queue.operationCount == requests.count)
+        return;
+    
+    [requests enumerateObjectsUsingBlock:^(NSURLRequest *request, NSUInteger idx, BOOL *stop) {
+        //Do we already have this download item?
+        [self addDownloadOperationWithRequest:request toQueue:queue
+                                      tag:0 useCache:useCache requests:requests];
     }];
 }
 

@@ -21,7 +21,7 @@ Download a set of files in parallel or sequential order.
 * Delegate or Block event callbacks.
 * All of the above in two lines of code.
 
-###Motivation 
+###Motivation
 
 Ever wanted to download a set of images in a parallel or sequential order, like creating a table cell view that resembles Facebook timeline cell that contains multiple images.
 If you tried to create such thing, then you realised that some images has to be downloaded before the others, namely the first image in the timeline cell must be downloaded before the second image in this same cell (remember we have multi images inside the same cell)
@@ -42,7 +42,7 @@ IASequentialDownloadManager, will help you download a set of urls in a sequentia
 2. Copy the files from ThirdParty directory to your project
 3. Add `CFNetwork.framework` and `Security.framework` to the project, if you are not sure on how to  add frameworks read the following SO [answer](http://stackoverflow.com/questions/6334966/adding-framework-in-xcode-4)
 
-###Prerequisite 
+###Prerequisite
 To use the download manager you should have:
 
 * iOS 5
@@ -61,53 +61,79 @@ The NSURL will be unique and cached against.
 
 Start the download operation  
 
-    // Start the download operation, if the download operation is already started for this url,
-    // the urls will never be downloaded twice
-    [IADownloadManager downloadItemWithURL:url useCache:YES];
-    
+```objective-c
+// Start the download operation, if the download operation is already started for this url,
+// the urls will never be downloaded twice
+[IADownloadManager downloadItemWithURL:url useCache:YES];
+```
+
 Start the download operation with NSURLRequest
 
-    // Start the download operation, if the download operation is already started for this url,
-    // the urls will never be downloaded twice
-    [IADownloadManager downloadItemWithRequest:request useCache:YES];
-    
+```objective-c
+// Start the download operation, if the download operation is already started for this url,
+// the urls will never be downloaded twice
+[IADownloadManager downloadItemWithRequest:request useCache:YES];
+```
+
 Attach Listener
 
-    // Attach a listener to the url
-    [IADownloadManager attachListener:self toURL:url];
+```objective-c
+// Attach a listener to the url
+[IADownloadManager attachListener:self toURL:url];
+```
 
-Detach Listener    
+Detach Listener
 
-    // Detach a listener to the url
-    [IADownloadManager detachListener:self];
-    
+```objective-c
+// Detach a listener to the url
+[IADownloadManager detachListener:self];
+```
+
 Delegate methods
 
-    - (void)downloadManagerDidProgress:(float)progress;
-    - (void)downloadManagerDidFinish:(BOOL)success response:(id)response;
-	
+```objective-c
+- (void)downloadManagerDidProgress:(float)progress;
+- (void)downloadManagerDidFinish:(BOOL)success response:(id)response;
+```
+
 ####Download files in Sequential order using delegate callback.
 
-Start the download operation	
+Start the download operation
 
-    //Start the download operation, if the download operation is already started for these urls,
-    //the urls will never be downloaded twice
-    [IASequentialDownloadManager downloadItemWithURLs:urls useCache:YES];
-    
+```objective-c
+//Start the download operation, if the download operation is already started for these urls,
+//the urls will never be downloaded twice
+[IASequentialDownloadManager downloadItemWithURLs:urls useCache:YES];
+```
+
+Start the download operation by NSURLRequests
+
+```objective-c
+//Start the download request for a sequence of Requests,
+//note that the same sequence of Requests will never be downloaded twice
+[IASequentialDownloadManager downloadItemWithRequests:requests useCache:YES];
+```
+
 Attach Listener
 
-    //Attach a listener to the urls
-    [IASequentialDownloadManager attachListener:self toURLs:urls];
-    
-Detach Listener    
+```objective-c
+//Attach a listener to the urls
+[IASequentialDownloadManager attachListener:self toURLs:urls];
+```
 
-    //Detach a listener to the url
-    [IASequentialDownloadManager detachListener:self];
-    
+Detach Listener
+
+```objective-c
+//Detach a listener to the url
+[IASequentialDownloadManager detachListener:self];
+```
+
 Delegate methods
 
-    - (void)sequentialManagerProgress:(float)progress atIndex:(int)index;
-    - (void)sequentialManagerDidFinish:(BOOL)success response:(id)response atIndex:(int)index;
+```objective-c
+- (void)sequentialManagerProgress:(float)progress atIndex:(int)index;
+- (void)sequentialManagerDidFinish:(BOOL)success response:(id)response atIndex:(int)index;
+```
 
 ####Block based callback.
 

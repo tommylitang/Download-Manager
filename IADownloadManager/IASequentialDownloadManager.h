@@ -23,6 +23,11 @@ typedef void (^IASequentialCompletionBlock)(BOOL success, id response, int index
 + (void) downloadItemWithURLs:(NSArray*)urls
                      useCache:(BOOL)useCache;
 
+//Start the download request for a sequence of Requests,
+//note that the same sequence of Requests will never be downloaded twice
++ (void) downloadItemWithRequests:(NSArray*)requests
+                         useCache:(BOOL)useCache;
+
 //Delegate based events
 // 1 set of URLs can have multiple listeners
 // But 1 listener cannot listen to multiple URLs
