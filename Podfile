@@ -5,6 +5,6 @@ pod 'AFNetworking'
 pod 'EGOCache'
 
 target :DownloadManagerTests, :exclusive => true do
-    pod 'Kiwi/XCTest'
+    pod 'Kiwi', '~> 2.3.0'
     pod 'Nocilla'
 end
