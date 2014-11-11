@@ -61,47 +61,53 @@ The NSURL will be unique and cached against.
 
 Start the download operation  
 
-	//Start the download operation, if the download operation is already started for this url,
-	//the urls will never be downloaded twice
+    // Start the download operation, if the download operation is already started for this url,
+    // the urls will never be downloaded twice
     [IADownloadManager downloadItemWithURL:url useCache:YES];
+    
+Start the download operation with NSURLRequest
+
+    // Start the download operation, if the download operation is already started for this url,
+    // the urls will never be downloaded twice
+    [IADownloadManager downloadItemWithRequest:request useCache:YES];
     
 Attach Listener
 
-	//Attach a listener to the url
+    // Attach a listener to the url
     [IADownloadManager attachListener:self toURL:url];
 
 Detach Listener    
 
-	//Detach a listener to the url
+    // Detach a listener to the url
     [IADownloadManager detachListener:self];
     
 Delegate methods
 
-	- (void)downloadManagerDidProgress:(float)progress;
-	- (void)downloadManagerDidFinish:(BOOL)success response:(id)response;
+    - (void)downloadManagerDidProgress:(float)progress;
+    - (void)downloadManagerDidFinish:(BOOL)success response:(id)response;
 	
 ####Download files in Sequential order using delegate callback.
 
 Start the download operation	
 
-	//Start the download operation, if the download operation is already started for these urls,
-	//the urls will never be downloaded twice
+    //Start the download operation, if the download operation is already started for these urls,
+    //the urls will never be downloaded twice
     [IASequentialDownloadManager downloadItemWithURLs:urls useCache:YES];
     
 Attach Listener
 
-	//Attach a listener to the urls
-	[IASequentialDownloadManager attachListener:self toURLs:urls];
+    //Attach a listener to the urls
+    [IASequentialDownloadManager attachListener:self toURLs:urls];
     
 Detach Listener    
 
-	//Detach a listener to the url
+    //Detach a listener to the url
     [IASequentialDownloadManager detachListener:self];
     
 Delegate methods
 
-	- (void)sequentialManagerProgress:(float)progress atIndex:(int)index;
-	- (void)sequentialManagerDidFinish:(BOOL)success response:(id)response atIndex:(int)index;
+    - (void)sequentialManagerProgress:(float)progress atIndex:(int)index;
+    - (void)sequentialManagerDidFinish:(BOOL)success response:(id)response atIndex:(int)index;
 
 ####Block based callback.
 
