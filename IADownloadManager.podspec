@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "omar abdelhafith" => "ed.abdelhafith@gmail.com" }
   s.source       = { :git => "https://github.com/tommylitang/Download-Manager.git", :tag => "1.0.0" }
   s.source_files = 'IADownloadManager/*.{h,m}'
-  s.platform     = :ios, '5.0'
+  s.platform     = :ios, '6.0'
   s.license      = 'MIT'
   
   s.requires_arc = true
